@@ -4,7 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>client</title>
+    <title>InterviewIQ — AI-Powered Interview Practice</title>
+
+    <!--
+      Theme initialisation script — runs synchronously before any CSS or JS
+      loads so there is zero flash of the wrong theme on page load.
+
+      Strategy:
+        1. Read the saved preference from localStorage ("light" | "dark" | "system").
+        2. If "system" or absent, check prefers-color-scheme.
+        3. Apply the "dark" class to <html> immediately if needed.
+        4. Add "no-transitions" class to suppress the CSS transition on first
+           paint, then remove it on the next animation frame so subsequent
+           theme changes animate smoothly.
+    -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem("iq-theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var dark =
+          stored === "dark" ||
+          ((!stored || stored === "system") && prefersDark);
+
+        if (dark) {
+          document.documentElement.classList.add("dark");
+        }
+
+        // Suppress transitions on first paint only
+        document.documentElement.classList.add("no-transitions");
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            document.documentElement.classList.remove("no-transitions");
+          });
+        });
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

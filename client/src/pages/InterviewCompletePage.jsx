@@ -18,6 +18,7 @@ import Navbar from "../components/layout/Navbar";
 import Button from "../components/ui/Button";
 import useInterviewStore from "../store/useInterviewStore";
 import { formatDate, formatDuration } from "../lib/format";
+import usePageTitle from "../hooks/usePageTitle";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -121,6 +122,10 @@ const InterviewCompletePage = () => {
 
   const { summary, fetching, error, fetchSummary, clearError, clearSummary } =
     useInterviewStore();
+
+  usePageTitle(
+    summary?.targetRole ? `${summary.targetRole} — Summary` : "Interview Summary"
+  );
 
   useEffect(() => {
     if (id) fetchSummary(id);

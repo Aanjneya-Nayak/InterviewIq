@@ -16,6 +16,7 @@ import InterviewCompletePage from "../pages/InterviewCompletePage";
 import ReportsPage from "../pages/ReportsPage";
 import ProfilePage from "../pages/ProfilePage";
 import NotFoundPage from "../pages/NotFoundPage";
+import InterviewHistoryPage from "../pages/InterviewHistoryPage";
 
 /**
  * Route architecture:
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { path: "/interview/:id", element: <InterviewPage /> },
       { path: "/interview/:id/session", element: <InterviewSessionPage /> },
       { path: "/interview/:id/complete", element: <InterviewCompletePage /> },
+      { path: "/interviews", element: <InterviewHistoryPage /> },
       { path: "/reports", element: <ReportsPage /> },
       { path: "/profile", element: <ProfilePage /> },
     ],

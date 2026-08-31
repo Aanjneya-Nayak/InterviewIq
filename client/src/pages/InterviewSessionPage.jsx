@@ -19,6 +19,7 @@ import Navbar from "../components/layout/Navbar";
 import Button from "../components/ui/Button";
 import ConfirmModal from "../components/ui/ConfirmModal";
 import useInterviewStore from "../store/useInterviewStore";
+import usePageTitle from "../hooks/usePageTitle";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const AUTOSAVE_INTERVAL_MS = 10_000;
@@ -226,12 +227,17 @@ const InterviewSessionPage = () => {
 
   const { fetchSession } = useInterviewStore.getState();
 
+  usePageTitle(
+    currentSession?.targetRole
+      ? `${currentSession.targetRole} — In Progress`
+      : "Interview Session"
+  );
+
   // ── Local state ───────────────────────────────────────────────────────────
   const [localAnswer, setLocalAnswer]   = useState("");
   const [lastSaved,   setLastSaved]     = useState(null);
   const [exitModal,   setExitModal]     = useState(false);   // exit confirm
   const [finishModal, setFinishModal]   = useState(false);   // finish confirm (partial)
-  const [navPending,  setNavPending]    = useState(null);    // pending nav index
 
   const lastSavedAnswerRef = useRef("");
   const autosaveRef        = useRef(null);

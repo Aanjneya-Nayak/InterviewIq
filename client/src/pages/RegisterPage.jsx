@@ -18,7 +18,6 @@ const RegisterPage = () => {
     watch,
   } = useForm({ mode: "onTouched" });
 
-  // Watch password to validate confirm password
   const password = watch("password");
 
   const onSubmit = async ({ name, email, password }) => {
@@ -28,7 +27,6 @@ const RegisterPage = () => {
       toast.success("Account created! Welcome to InterviewIQ.");
       navigate("/dashboard");
     } else {
-      // Map duplicate email error to the email field
       if (result.message?.toLowerCase().includes("email")) {
         setError("email", { type: "server", message: result.message });
       } else {
@@ -38,23 +36,23 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-12">
       <div className="w-full max-w-md">
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center gap-2 mb-8 text-indigo-600 font-bold text-xl"
+          className="flex items-center justify-center gap-2 mb-8 text-indigo-600 dark:text-indigo-400 font-bold text-xl"
         >
-          <BrainCircuit className="w-6 h-6" />
+          <BrainCircuit className="w-6 h-6" aria-hidden="true" />
           InterviewIQ
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               Create an account
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Start your AI-powered interview prep today
             </p>
           </div>
@@ -73,14 +71,8 @@ const RegisterPage = () => {
               error={errors.name}
               registration={register("name", {
                 required: "Name is required",
-                minLength: {
-                  value: 2,
-                  message: "Name must be at least 2 characters",
-                },
-                maxLength: {
-                  value: 50,
-                  message: "Name cannot exceed 50 characters",
-                },
+                minLength: { value: 2, message: "Name must be at least 2 characters" },
+                maxLength: { value: 50, message: "Name cannot exceed 50 characters" },
               })}
             />
 
@@ -109,19 +101,11 @@ const RegisterPage = () => {
               error={errors.password}
               registration={register("password", {
                 required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
+                minLength: { value: 8, message: "Password must be at least 8 characters" },
                 validate: {
-                  hasUpper: (v) =>
-                    /[A-Z]/.test(v) ||
-                    "Must contain at least one uppercase letter",
-                  hasLower: (v) =>
-                    /[a-z]/.test(v) ||
-                    "Must contain at least one lowercase letter",
-                  hasNumber: (v) =>
-                    /[0-9]/.test(v) || "Must contain at least one number",
+                  hasUpper:  (v) => /[A-Z]/.test(v) || "Must contain at least one uppercase letter",
+                  hasLower:  (v) => /[a-z]/.test(v) || "Must contain at least one lowercase letter",
+                  hasNumber: (v) => /[0-9]/.test(v) || "Must contain at least one number",
                 },
               })}
             />
@@ -144,11 +128,11 @@ const RegisterPage = () => {
             </Button>
           </form>
 
-          <p className="text-sm text-center text-gray-500 mt-6">
+          <p className="text-sm text-center text-gray-500 dark:text-gray-400 mt-6">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-indigo-600 font-medium hover:underline"
+              className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline"
             >
               Sign in
             </Link>

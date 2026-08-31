@@ -15,6 +15,7 @@ import AnalysisSkeleton from "../components/analysis/AnalysisSkeleton";
 import AnalysisResult from "../components/analysis/AnalysisResult";
 import useAnalysisStore from "../store/useAnalysisStore";
 import { formatDate } from "../lib/format";
+import usePageTitle from "../hooks/usePageTitle";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -267,6 +268,7 @@ const TipsSidebar = () => (
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 const AnalysisPage = () => {
+  usePageTitle("Resume Analysis");
   const {
     analysis,
     currentResume,

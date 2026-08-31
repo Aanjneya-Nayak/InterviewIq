@@ -31,21 +31,23 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center gap-2 mb-8 text-indigo-600 font-bold text-xl"
+          className="flex items-center justify-center gap-2 mb-8 text-indigo-600 dark:text-indigo-400 font-bold text-xl"
         >
-          <BrainCircuit className="w-6 h-6" />
+          <BrainCircuit className="w-6 h-6" aria-hidden="true" />
           InterviewIQ
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-8">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Welcome back
+            </h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Sign in to your InterviewIQ account
             </p>
           </div>
@@ -88,11 +90,11 @@ const LoginPage = () => {
             </Button>
           </form>
 
-          <p className="text-sm text-center text-gray-500 mt-6">
+          <p className="text-sm text-center text-gray-500 dark:text-gray-400 mt-6">
             Don&apos;t have an account?{" "}
             <Link
               to="/register"
-              className="text-indigo-600 font-medium hover:underline"
+              className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline"
             >
               Create one
             </Link>

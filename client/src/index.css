@@ -1,1 +1,49 @@
 @import "tailwindcss";
+
+/*
+ * Dark mode — class strategy for Tailwind v4.
+ * Tailwind v4 uses @variant to define custom variants.
+ * This tells Tailwind that `dark:` utilities apply when an ancestor has
+ * the class `.dark` (we set this on <html> via useThemeStore + the
+ * no-flash inline script in index.html).
+ */
+@variant dark (&:is(.dark *));
+
+/*
+ * Smooth theme transitions — applied to everything except SVGs to prevent
+ * jarring colour snaps when toggling. The transition is deliberately short
+ * (150ms) so it feels instant, not sluggish.
+ */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+/* Kill transitions during the initial paint to prevent FOUC */
+html.no-transitions * {
+  transition: none !important;
+}
+
+/* ── Base tokens ──────────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+  --scrollbar-thumb: #d1d5db;
+  --scrollbar-track: #f9fafb;
+}
+
+html.dark {
+  color-scheme: dark;
+  --scrollbar-thumb: #374151;
+  --scrollbar-track: #111827;
+}
+
+/* ── Custom scrollbar (Webkit) ───────────────────────────────────────────── */
+
+::-webkit-scrollbar          { width: 6px; height: 6px; }
+::-webkit-scrollbar-track    { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb    { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }

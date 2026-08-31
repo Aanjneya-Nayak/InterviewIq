@@ -17,6 +17,7 @@ import Button from "../components/ui/Button";
 import useInterviewStore from "../store/useInterviewStore";
 import useResumeStore from "../store/useResumeStore";
 import useAnalysisStore from "../store/useAnalysisStore";
+import usePageTitle from "../hooks/usePageTitle";
 
 // ─── Configuration options (mirror server-side constants) ────────────────────
 
@@ -181,6 +182,7 @@ const PrerequisiteBanner = ({ resume, analysis }) => {
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 const InterviewSetupPage = () => {
+  usePageTitle("New Interview");
   const navigate = useNavigate();
   const { createSession, creating, error, clearError } = useInterviewStore();
   const { resume, fetchResume, fetching: resumeFetching } = useResumeStore();

@@ -7,6 +7,7 @@ import ResumeUpload from "../components/resume/ResumeUpload";
 import ResumeCard from "../components/resume/ResumeCard";
 import ResumeHistory from "../components/resume/ResumeHistory";
 import useResumeStore from "../store/useResumeStore";
+import usePageTitle from "../hooks/usePageTitle";
 
 /**
  * ResumePage
@@ -26,6 +27,7 @@ import useResumeStore from "../store/useResumeStore";
  *   deleting  — drives the ResumeCard delete button spinner only
  */
 const ResumePage = () => {
+  usePageTitle("Resume");
   const {
     resume,
     history,

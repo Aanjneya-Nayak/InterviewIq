@@ -15,6 +15,7 @@ import Navbar from "../components/layout/Navbar";
 import Button from "../components/ui/Button";
 import useInterviewStore from "../store/useInterviewStore";
 import { formatDate } from "../lib/format";
+import usePageTitle from "../hooks/usePageTitle";
 
 /**
  * InterviewPage — session detail / lobby view at /interview/:id.
@@ -64,6 +65,12 @@ const InterviewPage = () => {
     error,
     clearError,
   } = useInterviewStore();
+
+  usePageTitle(
+    currentSession?.targetRole
+      ? `${currentSession.targetRole} — Interview`
+      : "Interview"
+  );
 
   useEffect(() => {
     if (id) fetchSession(id);

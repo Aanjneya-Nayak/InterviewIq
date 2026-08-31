@@ -2,12 +2,15 @@ import { forwardRef } from "react";
 import { Loader2 } from "lucide-react";
 
 /**
- * Reusable button with built-in loading state.
- * The spinner replaces the label text while loading so the button
- * width stays stable and doesn't cause layout shift.
+ * Button
  *
- * Supports ref forwarding so focus management (e.g. ConfirmModal) can
- * programmatically focus a specific button instance.
+ * Reusable button with built-in loading state and dark-mode support.
+ * Supports ref-forwarding for focus management (e.g. ConfirmModal).
+ *
+ * Variants:
+ *   primary   — indigo fill (works on both themes)
+ *   secondary — white/border on light; dark surface on dark
+ *   danger    — red fill (works on both themes)
  */
 const Button = forwardRef(function Button(
   {
@@ -28,8 +31,9 @@ const Button = forwardRef(function Button(
     primary:
       "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500",
     secondary:
-      "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-gray-400",
-    danger: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+      "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-gray-400 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600",
+    danger:
+      "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
   };
 
   return (
