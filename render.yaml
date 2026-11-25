@@ -1,0 +1,63 @@
+# Render Blueprint for InterviewIQ
+# This file defines infrastructure as code for deploying to Render.
+# Note: Blueprint auto-sync requires a paid Render plan. For free tier, use the Dashboard UI
+# and reference this file as a configuration template.
+
+services:
+  # ─── Backend Web Service ─────────────────────────────────────────────────
+  - type: web
+    name: interviewiq-server
+    runtime: node
+    plan: free
+    region: oregon # Choose region closest to your users
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000 # Render assigns this by default, but document it
+      - key: MONGO_URI
+        sync: false # Set manually in Render dashboard — MongoDB Atlas connection string
+      - key: JWT_SECRET
+        generateValue: true # Render will auto-generate a secure random value
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_URL
+        sync: false # Set to deployed Static Site URL: https://<client-name>.onrender.com
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false # Get from Cloudinary dashboard
+      - key: CLOUDINARY_API_KEY
+        sync: false # Get from Cloudinary dashboard
+      - key: CLOUDINARY_API_SECRET
+        sync: false # Get from Cloudinary dashboard
+      - key: GEMINI_API_KEY
+        sync: false # Get from Google AI Studio
+      - key: GEMINI_MODEL
+        value: gemini-1.5-flash
+
+  # ─── Frontend Static Site ────────────────────────────────────────────────
+  - type: static
+    name: interviewiq-client
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    rootDir: client
+    envVars:
+      - key: VITE_API_URL
+        sync: false # Set to deployed Web Service URL: https://<server-name>.onrender.com/api
+    headers:
+      # Cache static assets aggressively, but always revalidate HTML
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    routes:
+      # SPA routing: redirect all requests to index.html for client-side routing
+      - type: rewrite
+        source: /*
+        destination: /index.html

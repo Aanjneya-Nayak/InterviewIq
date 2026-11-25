@@ -16,6 +16,12 @@ import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 
+// ─── Trust Proxy ─────────────────────────────────────────────────────────────
+// Render (and most PaaS platforms) place apps behind a reverse proxy.
+// Without trust proxy, rate limiting sees all requests from the proxy's IP.
+// Setting trust proxy tells Express to read X-Forwarded-* headers.
+app.set("trust proxy", 1);
+
 // ─── Security ────────────────────────────────────────────────────────────────
 // Helmet sets a suite of security-related HTTP headers in one call.
 app.use(helmet());
